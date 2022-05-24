@@ -1,0 +1,37 @@
+const fs = require('fs');
+const YAML = require('yaml');
+
+const CONFIG = YAML.parse(fs.readFileSync('config.yml', 'utf8'));
+
+const reCaptchaServeKey = CONFIG.reCaptchaServeKey;
+const dev = Boolean(CONFIG.dev);
+const IPDomainName = CONFIG.IPDomainName;
+
+const aliyunConfig = {
+    accessKeyId: CONFIG.aliyun.accessKeyId,
+    accessKeySecret: CONFIG.aliyun.accessKeySecret
+};
+
+const dbConfig = {
+    host: CONFIG.db.host,
+    port: CONFIG.db.port,
+    user: CONFIG.db.user,
+    password: CONFIG.db.password,
+    database: CONFIG.db.database
+};
+
+const mailConfig = {
+    host: CONFIG.mail.host,
+    port: CONFIG.mail.port,
+    user: CONFIG.mail.user,
+    password: CONFIG.mail.password
+};
+
+module.exports = {
+    reCaptchaServeKey,
+    dev,
+    IPDomainName,
+    aliyunConfig,
+    dbConfig,
+    mailConfig
+};

@@ -1,0 +1,16 @@
+dev:
+reCaptchaServeKey:
+aliyun:
+  accessKeyId:
+  accessKeySecret:
+db:
+  host:
+  port:
+  user:
+  password:
+  database:
+mail:
+  host:
+  port:
+  user:
+  password:
