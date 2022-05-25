@@ -16,7 +16,7 @@ const requestOption = {
     method: 'POST',
     formatParams: false
 };
-const TTL = 60;
+const TTL = 1;
 
 /**
  * 标准化解析类型名
