@@ -6,7 +6,7 @@
         "start": "node index.js"
     },
     "dependencies": {
-        "@alicloud/pop-core": "^1.7.10",
+        "@alicloud/pop-core": "^1.7.11",
         "axios": "^0.27.2",
         "cors": "^2.8.5",
         "crypto-js": "^4.1.1",
