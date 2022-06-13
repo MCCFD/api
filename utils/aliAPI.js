@@ -9,7 +9,8 @@ const client = new Core({
     accessKeyId: accessKeyId,
     accessKeySecret: accessKeySecret,
     // https://alidns.cn-hongkong.aliyuncs.com 香港
-    endpoint: 'https://alidns.cn-shanghai.aliyuncs.com',
+    // https://alidns.cn-shanghai.aliyuncs.com 香港
+    endpoint: 'https://alidns.cn-hongkong.aliyuncs.com',
     apiVersion: '2015-01-09'
 });
 const requestOption = {
