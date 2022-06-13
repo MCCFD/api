@@ -15,7 +15,6 @@
         "jsonwebtoken": "^8.5.1",
         "mysql2": "^2.3.3",
         "nodemailer": "^6.7.5",
-        "request": "^2.88.2",
         "yaml": "^2.1.1"
     }
 }
