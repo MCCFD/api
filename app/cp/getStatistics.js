@@ -1,4 +1,4 @@
-const { checkNull, checkSESSDATA, resUtile, getNowUTCTime } = require('../../utils/box');
+const { checkNull, checkSESSDATA, resUtile, getNowTime } = require('../../utils/box');
 const { reqLog, otherLog } = require('../../utils/log');
 const { getUserResolution } = require('../../utils/mysql');
 const { getStatisticsData } = require('../../utils/mongodb');
@@ -14,10 +14,10 @@ const getStatistics = async (req, res) => {
     res.setHeader('Content-Type', 'application/json;charset=utf-8');
 
     const sessdata = req.body.sessdata;
-    const startTime = Number(req.body.startTime) + 28800000;
-    const endTime = Number(req.body.endTime) + 28800000;
+    const startTime = Number(req.body.startTime);
+    const endTime = Number(req.body.endTime);
     if (checkNull([sessdata, startTime, endTime], res) == null) return;
-    const NowTime = getNowUTCTime() + 28800000;
+    const NowTime = getNowTime();
     if (NowTime-startTime > 15 * 86400000 || NowTime < endTime) {
         otherLog('时间参数错误 | startTime: '+startTime+' | endTime: '+endTime+' | NowUTCTime: '+NowTime, '[LOG][Error]', 'error');
         resUtile(res, 400, '参数错误', '');

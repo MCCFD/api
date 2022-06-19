@@ -188,12 +188,12 @@ const parseServe = (serve) => {
 };
 
 /**
- * 获取当前UTC时间戳
+ * 获取当前东八时区时间戳
  * @returns {String} NowUTCTime
  */
-const getNowUTCTime = () => {
+const getNowTime = () => {
     const nowTime = new Date();
-    return nowTime.getTime() + (nowTime.getTimezoneOffset() * 60000);
+    return nowTime.getTime() + (nowTime.getTimezoneOffset() * 60000)  + 28800000;
 };
 
 module.exports = {
@@ -206,5 +206,5 @@ module.exports = {
     verifyJWT,
     checkSESSDATA,
     parseServe,
-    getNowUTCTime,
+    getNowTime,
 };
