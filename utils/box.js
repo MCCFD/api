@@ -187,6 +187,15 @@ const parseServe = (serve) => {
     };
 };
 
+/**
+ * 获取当前UTC时间戳
+ * @returns {String} NowUTCTime
+ */
+const getNowUTCTime = () => {
+    const nowTime = new Date();
+    return nowTime.getTime() + (nowTime.getTimezoneOffset() * 60000);
+};
+
 module.exports = {
     resUtile,
     getIP,
@@ -197,4 +206,5 @@ module.exports = {
     verifyJWT,
     checkSESSDATA,
     parseServe,
+    getNowUTCTime,
 };

@@ -20,6 +20,11 @@ const dbConfig = {
     database: CONFIG.db.database
 };
 
+const mgdbConfig = {
+    host: CONFIG.mgdb.host,
+    port: CONFIG.mgdb.port,
+};
+
 const mailConfig = {
     host: CONFIG.mail.host,
     port: CONFIG.mail.port,
@@ -33,5 +38,6 @@ module.exports = {
     IPDomainName,
     aliyunConfig,
     dbConfig,
+    mgdbConfig,
     mailConfig
 };

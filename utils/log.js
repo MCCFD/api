@@ -60,6 +60,7 @@ const resLog = (code, msg, data) => {
 /**
  * 其他日志
  * @param {String} msg Message
+ * @param {String} tag (选) Tag
  * @param {String} type (选)日志类型 默认log (log, error, warn, info, debug)
  */
 const otherLog = (msg, tag='[LOG]', type='log') => {

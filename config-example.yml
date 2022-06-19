@@ -9,6 +9,9 @@ db:
   user:
   password:
   database:
+mgdb:
+  host:
+  port:
 mail:
   host:
   port:

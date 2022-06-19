@@ -7,6 +7,7 @@ const updateResolution = require('../app/cp/updateResolution');
 const delResolution = require('../app/cp/delResolution');
 const changePassword = require('../app/cp/changePassword/changePassword');
 const changePassword_getCheckMailCode = require('../app/cp/changePassword/getCheckMailCode');
+const getStatistics = require('../app/cp/getStatistics');
 
 /**
  * 获取用户信息
@@ -49,5 +50,12 @@ router.post('/change_password', changePassword);
  * 参数: sessdata
  */
 router.post('/change_password/get_check_mail_code', changePassword_getCheckMailCode);
+
+/**
+ * 查询解析量
+ * /api/cp/getStatistics
+ * 参数: sessdata, startTime, endTime
+ */
+router.post('/getStatistics', getStatistics);
 
 module.exports = router;
