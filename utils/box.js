@@ -192,8 +192,12 @@ const parseServe = (serve) => {
  * @returns {String} NowUTCTime
  */
 const getNowTime = () => {
-    const nowTime = new Date();
-    return nowTime.getTime() + (nowTime.getTimezoneOffset() * 60000)  + 28800000;
+    const t = new Date();
+    const y = String(t.getFullYear());
+    let m = String(t.getMonth() + 1);
+    const d = String(t.getDate());
+    if (m.length == 1) m = "0" + m;
+    return Number(y + m + d);
 };
 
 module.exports = {

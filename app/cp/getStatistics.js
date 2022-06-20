@@ -18,7 +18,7 @@ const getStatistics = async (req, res) => {
     const endTime = Number(req.body.endTime);
     if (checkNull([sessdata, startTime, endTime], res) == null) return;
     const NowTime = getNowTime();
-    if (NowTime-startTime > 15 * 86400000 || NowTime < endTime) {
+    if (NowTime-startTime > 16 || NowTime < endTime) {
         otherLog('时间参数错误 | startTime: '+startTime+' | endTime: '+endTime+' | NowUTCTime: '+NowTime, '[LOG][Error]', 'error');
         resUtile(res, 400, '参数错误', '');
         return;
@@ -49,15 +49,7 @@ const getStatistics = async (req, res) => {
     // 获取解析量
     let statisticsData = [];
     try {
-        const sTime = (time) => {
-            const t = new Date(time);
-            const y = String(t.getFullYear());
-            let m = String(t.getMonth() + 1);
-            const d = String(t.getDate());
-            if (m.length == 1) m = '0' + m;
-            return y + m + d;
-        };
-        const getStatisticsData_data = await getStatisticsData(sTime(startTime), sTime(endTime), resolutionList);
+        const getStatisticsData_data = await getStatisticsData(startTime, endTime, resolutionList);
         statisticsData = getStatisticsData_data;
     } catch(e) {
         otherLog('获取解析量 出现错误 | '+e.message, '[LOG][Error]', 'error');
