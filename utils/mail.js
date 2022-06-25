@@ -12,6 +12,15 @@ const transporter = nodemailer.createTransport({
         pass: mailConfig.password
     }
 });
+// var transporter = nodemailer.createTransport({
+//     "host": mailConfig.host,
+//     "port": mailConfig.port,
+//     "secureConnection": true,
+//     "auth": {
+//         "user": mailConfig.user,
+//         "pass": mailConfig.password
+//     }
+// });
 
 /**
  * 发送注册验证码
@@ -20,7 +29,7 @@ const transporter = nodemailer.createTransport({
  */
 const sendRegisteredEmail = async (key, mail) => {
     const mailOptions = {
-        from: 'MC.CFD<'+mailConfig.user+'>',
+        from: 'MCCFD <'+mailConfig.user+'>',
         to: mail,
         subject: 'MC.CFD 注册邮箱验证',
         html: `
@@ -56,7 +65,7 @@ const sendRegisteredEmail = async (key, mail) => {
  */
 const sendFindEmail = async (key, mail) => {
     const mailOptions = {
-        from: 'MC.CFD<'+mailConfig.user+'>',
+        from: 'MCCFD <'+mailConfig.user+'>',
         to: mail,
         subject: 'MC.CFD 找回密码',
         html: `
@@ -92,7 +101,7 @@ const sendFindEmail = async (key, mail) => {
  */
 const sendChangePasswordEmail = async (key, mail) => {
     const mailOptions = {
-        from: 'MC.CFD<'+mailConfig.user+'>',
+        from: 'MCCFD <'+mailConfig.user+'>',
         to: mail,
         subject: 'MC.CFD 修改密码',
         html: `
