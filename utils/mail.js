@@ -6,6 +6,7 @@ const { mailConfig } = require('./getConfig');
 const transporter = nodemailer.createTransport({
     host: mailConfig.host,
     port: mailConfig.port,
+    secureConnection: true,
     auth: {
         user: mailConfig.user,
         pass: mailConfig.password
@@ -19,10 +20,9 @@ const transporter = nodemailer.createTransport({
  */
 const sendRegisteredEmail = async (key, mail) => {
     const mailOptions = {
-        from: 'MC.CFD <no-reply@hgy.ooo>',
+        from: 'MC.CFD<'+mailConfig.user+'>',
         to: mail,
         subject: 'MC.CFD 注册邮箱验证',
-        replyTo: 'qiaoshouzi@hgy.ooo',
         html: `
         <h1>MC.CFD 注册邮箱验证</h1>
         <p>${mail}, 您好!</p>
@@ -56,10 +56,9 @@ const sendRegisteredEmail = async (key, mail) => {
  */
 const sendFindEmail = async (key, mail) => {
     const mailOptions = {
-        from: 'MC.CFD <no-reply@hgy.ooo>',
+        from: 'MC.CFD<'+mailConfig.user+'>',
         to: mail,
         subject: 'MC.CFD 找回密码',
-        replyTo: 'qiaoshouzi@hgy.ooo',
         html: `
         <h1>MC.CFD 找回密码</h1>
         <p>${mail}, 您好!</p>
@@ -93,10 +92,9 @@ const sendFindEmail = async (key, mail) => {
  */
 const sendChangePasswordEmail = async (key, mail) => {
     const mailOptions = {
-        from: 'MC.CFD <no-reply@hgy.ooo>',
+        from: 'MC.CFD<'+mailConfig.user+'>',
         to: mail,
         subject: 'MC.CFD 修改密码',
-        replyTo: 'qiaoshouzi@hgy.ooo',
         html: `
         <h1>MC.CFD 修改密码</h1>
         <p>${mail}, 您好!</p>
