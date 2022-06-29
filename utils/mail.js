@@ -47,14 +47,14 @@ const sendRegisteredEmail = async (key, mail) => {
     try {
         const sendMail_data = await transporter.sendMail(mailOptions);
         otherLog(`注册邮箱验证 - 成功 | Mail: ${mail} Key: ${key}`, '[Mail]');
-        Promise.resolve(sendMail_data);
+        return Promise.resolve(sendMail_data);
     } catch(e) {
         otherLog(
             `注册邮箱验证 - 失败 | Mail: ${mail} Key: ${key} - `+e.message,
             '[Mail][Error]',
             'error'
         );
-        Promise.reject(e);
+        return Promise.reject(e);
     };
 };
 
@@ -83,14 +83,14 @@ const sendFindEmail = async (key, mail) => {
     try {
         const sendMail_data = await transporter.sendMail(mailOptions);
         otherLog(`找回密码 - 成功 | Mail: ${mail} Key: ${key}`, '[Mail]');
-        Promise.resolve(sendMail_data);
+        return Promise.resolve(sendMail_data);
     } catch(e) {
         otherLog(
             `找回密码 - 失败 | Mail: ${mail} Key: ${key} - `+e.message,
             '[Mail][Error]',
             'error'
         );
-        Promise.reject(e);
+        return Promise.reject(e);
     };
 };
 
@@ -119,14 +119,14 @@ const sendChangePasswordEmail = async (key, mail) => {
     try {
         const sendMail_data = await transporter.sendMail(mailOptions);
         otherLog(`修改密码 - 成功 | Mail: ${mail} Key: ${key}`, '[Mail]');
-        Promise.resolve(sendMail_data);
+        return Promise.resolve(sendMail_data);
     } catch(e) {
         otherLog(
             `修改密码 - 失败 | Mail: ${mail} Key: ${key} - `+e.message,
             '[Mail][Error]',
             'error'
         );
-        Promise.reject(e);
+        return Promise.reject(e);
     };
 };
 
