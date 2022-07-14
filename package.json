@@ -13,7 +13,7 @@
         "express": "^4.18.1",
         "jsonplus": "^1.2.1",
         "jsonwebtoken": "^8.5.1",
-        "mongodb": "^4.7.0",
+        "mongodb": "^4.8.0",
         "mysql2": "^2.3.3",
         "nodemailer": "^6.7.6",
         "yaml": "^2.1.1"
