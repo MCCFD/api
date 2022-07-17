@@ -2,7 +2,7 @@ const CryptoJS = require("crypto-js");
 
 const { getPassword } = require('../utils/mysql');
 const { reqLog, otherLog } = require('../utils/log');
-const { checkNull, checkReCaptchaKey, createJWT, resUtile } = require('../utils/box');
+const { checkNull, checkVaptcha, createJWT, resUtile } = require('../utils/box');
 
 /**
  * 检测密码
@@ -32,8 +32,9 @@ const login = async (req, res) => {
     
     const mail = req.body.mail;
     const password = req.body.password;
-    const reCaptchaKey = req.body.reCaptchaKey;
-    if (checkNull([mail, password, reCaptchaKey], res) == null) return;
+    const captchaServer = req.body.captchaServer;
+    const captchaToken = req.body.captchaToken;
+    if (checkNull([mail, password, captchaServer, captchaToken], res) == null) return;
     if (
         mail.search(/^.+@.+\.[a-z]+$/) != 0
     ) {
@@ -42,10 +43,10 @@ const login = async (req, res) => {
         return;
     };
 
-    // 校验reCaptchaKey
+    // 校验Vaptcha
     try {
-        const checkReCaptchaKey_data = await checkReCaptchaKey(reCaptchaKey, req, res);
-        if (checkReCaptchaKey_data == false) return;
+        const checkVaptcha_data = await checkVaptcha(captchaServer, captchaToken, 1, req, res);
+        if (checkVaptcha_data == false) return;
     } catch(e) {
         return;
     };

@@ -3,7 +3,6 @@ const YAML = require('yaml');
 
 const CONFIG = YAML.parse(fs.readFileSync('config.yml', 'utf8'));
 
-const reCaptchaServeKey = CONFIG.reCaptchaServeKey;
 const dev = Boolean(CONFIG.dev);
 const IPDomainName = CONFIG.IPDomainName;
 
@@ -33,7 +32,6 @@ const mailConfig = {
 };
 
 module.exports = {
-    reCaptchaServeKey,
     dev,
     IPDomainName,
     aliyunConfig,

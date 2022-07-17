@@ -2,7 +2,7 @@ const CryptoJS = require("crypto-js");
 
 const { sendFindEmail } = require('../../utils/mail');
 const { reqLog, otherLog } = require('../../utils/log');
-const { checkNull, checkReCaptchaKey, resUtile } = require('../../utils/box');
+const { checkNull, checkVaptcha, resUtile } = require('../../utils/box');
 const { checkUserInfo, addFindInfo, updateFindInfo } = require('../../utils/mysql');
 
 /**
@@ -15,19 +15,20 @@ const getCheckMailCode = async (req, res) => {
     otherLog('/api/find/get_check_mail_code 获取邮箱验证码');
     res.setHeader('Content-Type', 'application/json;charset=utf-8');
 
-    const reCaptchaKey = req.body.reCaptchaKey;
+    const captchaServer = req.body.captchaServer;
+    const captchaToken = req.body.captchaToken;
     const mail = String(req.body.mail).toLocaleLowerCase();
-    if (checkNull([mail, reCaptchaKey], res) == null) return;
+    if (checkNull([mail, captchaServer, captchaToken], res) == null) return;
     if (mail.search(/^.+@.+\.[a-z]+$/) != 0) {
         otherLog('特殊参数错误 | mail: '+mail, '[checkP][Error]');
         resUtile(res, 400, '参数错误', '');
         return;
     };
 
-    // 校验reCaptchaKey
+    // 校验Vaptcha
     try {
-        const checkReCaptchaKey_data = await checkReCaptchaKey(reCaptchaKey, req, res);
-        if (checkReCaptchaKey_data == false) return;
+        const checkVaptcha_data = await checkVaptcha(captchaServer, captchaToken, 1, req, res);
+        if (checkVaptcha_data == false) return;
     } catch(e) {
         return;
     };

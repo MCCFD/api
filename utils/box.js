@@ -63,43 +63,47 @@ const checkNull = (data, res) => {
 };
 
 /**
- * 校验reCaptchaKey
- * @param {String} reCaptchaKey reCaptchaKey
+ * 校验Vaptcha
+ * @param {String} server server
+ * @param {String} token token
+ * @param {Number} scene scene
  * @param {Request} req Request
  * @param {Response} res Response
  */
-const checkReCaptchaKey = async (reCaptchaKey, req, res) => {
+const checkVaptcha = async (server, token, scene, req, res) => {
     const params = new URLSearchParams();
-    params.append('secret', reCaptchaServeKey);
-    params.append('response', reCaptchaKey);
-    params.append('remoteip', getIP(req));
+    params.append('id', '6134bf861ed1331e19c12c0f');
+    params.append('secretkey', '788eaaa4f99e4f8998ee8f6b07fbdaff');
+    params.append('scene', String(scene));
+    params.append('token', token);
+    params.append('ip', getIP(req));
 
     try {
-        const req = await axios.post('https://www.google.com/recaptcha/api/siteverify', params);
+        const req = await axios.post(server, params);
         if (req.status == 200) {
-            if (req.data.success != true) {
-                otherLog(`reCaptcha 验证失败 ${String(req.data['error-codes'])}`, '[reCaptcha]');
-                resUtile(res, 403, `reCaptcha 验证失败 ${String(req.data['error-codes'])}`, '');
+            if (req.data.success != 1) {
+                otherLog(`Vaptcha 验证失败 score:${String(req.data.score)} msg:${String(req.data.msg)}`, '[Vaptcha]');
+                resUtile(res, 403, `Vaptcha 验证失败 score:${String(req.data.score)} msg:${String(req.data.msg)}`, '');
                 return Promise.resolve(false);
             } else {
-                otherLog('reCaptcha 验证成功', '[reCaptcha]');
+                otherLog('Vaptcha 验证成功', '[Vaptcha]');
                 return Promise.resolve(true);
             };
         } else {
             otherLog(
-                `请求 reCaptcha API 失败, Status Error ${req.status}`,
-                '[reCaptcha][Error]',
+                `请求 Vaptcha API 失败, Status Error ${req.status}`,
+                '[Vaptcha][Error]',
                 'error'
             );
             throw new Error('Status Error ' + req.status);
         };
     } catch(e) {
         otherLog(
-            '请求 reCaptcha API 失败, ErrorMessage '+e.message,
-            '[reCaptcha][Error]',
+            '请求 Vaptcha API 失败, ErrorMessage '+e.message,
+            '[Vaptcha][Error]',
             'error'
         );
-        resUtile(res, 500, '服务器请求 reCaptcha API 错误', '');
+        resUtile(res, 500, '服务器请求 Vaptcha API 错误', '');
         return Promise.reject(e);
     };
 };
@@ -204,7 +208,7 @@ module.exports = {
     resUtile,
     getIP,
     checkNull,
-    checkReCaptchaKey,
+    checkVaptcha,
     getEnPassword,
     createJWT,
     verifyJWT,

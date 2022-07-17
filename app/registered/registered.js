@@ -1,4 +1,4 @@
-const { checkNull, getEnPassword, checkReCaptchaKey, createJWT, resUtile } = require('../../utils/box');
+const { checkNull, getEnPassword, checkVaptcha, createJWT, resUtile } = require('../../utils/box');
 const { reqLog, otherLog } = require('../../utils/log');
 const {
     addUser,
@@ -19,8 +19,9 @@ const registered = async (req, res) => {
     const checkMailCode = String(req.body.key).toUpperCase();
     const userName = req.body.userName;
     const password = req.body.password;
-    const reCaptchaKey = req.body.reCaptchaKey;
-    if (checkNull([checkMailCode, userName, password, reCaptchaKey], res) == null) return;
+    const captchaServer = req.body.captchaServer;
+    const captchaToken = req.body.captchaToken;
+    if (checkNull([checkMailCode, userName, password, captchaServer, captchaToken], res) == null) return;
     if (
         userName.search(/^[a-z|A-Z|\u4e00-\u9fa5|0-9|_]{4,20}$/) != 0 ||
         password.search(
@@ -32,10 +33,10 @@ const registered = async (req, res) => {
         return;
     };
 
-    // 校验reCaptchaKey
+    // 校验Vaptcha
     try {
-        const checkReCaptchaKey_data = await checkReCaptchaKey(reCaptchaKey, req, res);
-        if (checkReCaptchaKey_data == false) return;
+        const checkVaptcha_data = await checkVaptcha(captchaServer, captchaToken, 1, req, res);
+        if (checkVaptcha_data == false) return;
     } catch(e) {
         return;
     };

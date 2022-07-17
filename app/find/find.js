@@ -1,4 +1,4 @@
-const { checkNull, checkReCaptchaKey, getEnPassword, createJWT, resUtile } = require('../../utils/box');
+const { checkNull, checkVaptcha, getEnPassword, createJWT, resUtile } = require('../../utils/box');
 const { getFindInfo, updateUserPassword, delFindInfo } = require('../../utils/mysql');
 const { reqLog, otherLog } = require('../../utils/log');
 
@@ -12,10 +12,11 @@ const getCheckMailCode = async (req, res) => {
     otherLog('/api/find 找回密码');
     res.setHeader('Content-Type', 'application/json;charset=utf-8');
 
-    const reCaptchaKey = req.body.reCaptchaKey;
+    const captchaServer = req.body.captchaServer;
+    const captchaToken = req.body.captchaToken;
     const key = String(req.body.key).toLocaleLowerCase();
     const password = req.body.password;
-    if (checkNull([reCaptchaKey, key, password], res) == null) return;
+    if (checkNull([captchaServer, captchaToken, key, password], res) == null) return;
     if (key.length != 8) {
         otherLog('特殊参数错误 | key: '+key, '[checkP][Error]');
         resUtile(res, 400, '验证码错误', '');
@@ -31,10 +32,10 @@ const getCheckMailCode = async (req, res) => {
         return;
     };
 
-    // 校验reCaptchaKey
+    // 校验Vaptcha
     try {
-        const checkReCaptchaKey_data = await checkReCaptchaKey(reCaptchaKey, req, res);
-        if (checkReCaptchaKey_data == false) return;
+        const checkVaptcha_data = await checkVaptcha(captchaServer, captchaToken, 1, req, res);
+        if (checkVaptcha_data == false) return;
     } catch(e) {
         return;
     };
